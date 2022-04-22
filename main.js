@@ -17,13 +17,11 @@ console.log(leider_viel_zu_früh_verglichen);
 */
 
 
-let randomsquare = new Tile();
+//let randomsquare = new Tile();
+alert("test")
 alert("Wohin kann der Springer auf " + randomsquare.print() + " ?");
 
-function checkLegalHorseeMove(tile1_x, tile2) {
-
-}
-
+/**
 class Tile {
     // file & rank in integers, to String method prints out the actual name of the tile
     constructor(file, rank) {
@@ -41,7 +39,7 @@ class Tile {
         return String(files[file]) + String(rank[rank])
     }
 }
-
+*/
 //yeet
 
 
