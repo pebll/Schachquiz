@@ -36,25 +36,47 @@ class Tile {
     }
 
     isOnBoard() {
-        if (this.file < 0 || this.file > 7 || this.file < 0 || this.file > 7) {
+        if (this.file < 0 || this.file > 7 || this.rank < 0 || this.rank > 7) {
             return false;
         }
         return true;
     }
 
     getKnightMoveTiles() {
-        let availableMoves = new List();
-        availableMoves.push(new Tile(this.file + 1, this.rank + 2))
+        let availableMoves = new Array(0);
+        let availableLegalMoves = new Array(0);
+        availableMoves.push(new Tile(this.file + 2, this.rank + 1));
+        availableMoves.push(new Tile(this.file + 2, this.rank - 1));
+        availableMoves.push(new Tile(this.file - 2, this.rank + 1));
+        availableMoves.push(new Tile(this.file - 2, this.rank - 1));
+        availableMoves.push(new Tile(this.file + 1, this.rank + 2));
+        availableMoves.push(new Tile(this.file + 1, this.rank - 2));
+        availableMoves.push(new Tile(this.file - 1, this.rank + 2));
+        availableMoves.push(new Tile(this.file - 1, this.rank - 2));
 
+        let i = 0;
+        for (i = 0; i < 8; i++) {
+            if (availableMoves[i].isOnBoard()) {
+                availableLegalMoves.push(availableMoves[i]);
+            }
+        }
+
+        return availableLegalMoves;
     }
 }
 
-
-
-
-
+function tileListToString(list) {
+    let string = "";
+    let i = 0;
+    for (i = 0; i < list.length; i++) {
+        string += list[i].print();
+        string += " ";
+    }
+    return string;
+}
 
 let randomsquare = new Tile();
 alert("Wohin kann der Springer auf " + randomsquare.print() + " ?");
+alert("Lösung: " + tileListToString(randomsquare.getKnightMoveTiles()))
 
 
