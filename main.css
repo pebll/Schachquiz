@@ -1,0 +1,30 @@
+
+
+h1{
+    font-family: "Courier New";
+
+    font-size: 30px;
+    
+    color: rgb(0, 33, 62);
+
+    
+    
+}
+
+p{
+    font-family: "Courier New";
+}
+
+button{
+    margin-top: 5px;  
+    padding: 15px 32px;
+    background-color: #000000;
+    font-size: large;
+    font-family: "Courier New";
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+}
+input{
+    font-family: "Courier New";
+    font-size:large;
+}
