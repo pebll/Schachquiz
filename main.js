@@ -1,4 +1,5 @@
 'use strict';
+"use collections/list";
 /*
 function ausgabe(vorname) {
     alert('JavaScript-Tutorial für '+ vorname  +'- jetzt JavaScript lernen');
@@ -19,13 +20,13 @@ console.log(leider_viel_zu_früh_verglichen);
 
 class Tile {
     // file & rank in integers, to String method prints out the actual name of the tile
-    /**constructor(file, rank) {
+    constructor(file = -1, rank = -1) {
         this.file = file;
         this.rank = rank;
-    }*/
-    constructor() {
-        this.file = parseInt(Math.random() * 8);
-        this.rank = parseInt(Math.random() * 8);
+        if ((this.file < 0 || this.file > 7 || this.file < 0 || this.file > 7)) {
+            this.file = parseInt(Math.random() * 8);
+            this.rank = parseInt(Math.random() * 8);
+        }
     }
 
     print() {
@@ -33,11 +34,27 @@ class Tile {
         let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
         return String(files[this.file]) + String(ranks[this.rank]);
     }
+
+    isOnBoard() {
+        if (this.file < 0 || this.file > 7 || this.file < 0 || this.file > 7) {
+            return false;
+        }
+        return true;
+    }
+
+    getKnightMoveTiles() {
+        let availableMoves = new List();
+        availableMoves.push(new Tile(this.file + 1, this.rank + 2))
+
+    }
 }
 
 
+
+
+
+
 let randomsquare = new Tile();
-alert("test");
 alert("Wohin kann der Springer auf " + randomsquare.print() + " ?");
 
 
