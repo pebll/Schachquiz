@@ -37,11 +37,7 @@ class Tile {
 
     print() {
         let files = ["a", "b", "c", "d", "e", "f", "g", "h"];
-<<<<<<< HEAD
-        let ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-=======
         let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
->>>>>>> 4297e0b4c0e00d5de67111895aef187eca43b54a
         return String(files[file]) + String(rank[rank])
     }
 }
