@@ -99,7 +99,6 @@ function checkAnswer(){
     }
     else{document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Der legale Zug wäre gewesen Springer nach "+document.getElementById(rightOption).innerText+".";
     }
-    setTimeout(1000);
     showKnightPos();
     generateQuestion();
 }
