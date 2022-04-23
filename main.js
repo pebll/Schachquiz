@@ -56,6 +56,10 @@ class Tile {
 
         return availableLegalMoves;
     }
+    getRandomKnightMoveTile(){
+        let randomIndex = Math.floor(Math.random()*this.getKnightMoveTiles().length);
+        return this.getKnightMoveTiles()[randomIndex];
+    }
 }
 
 function tileListToString(list) {
@@ -68,28 +72,39 @@ function tileListToString(list) {
 }
 
 let rightOption = 0; //globale Variable
+let randomStartSquare = new Tile();
 
-function generateQuestion(startSquare){
+function generateQuestion(){
     rightOption = Math.floor(Math.random()*3); //zufallszahl zw 0 und 2
-    let random = Math.floor(Math.random()*8); //zz zw 0 7
+    
     for(let i = 0; i<3; i++){// in schleife schreibe die optionen in das HTML
         if(i != rightOption){ //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
         document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+new Tile().print()+'</input><br/>';
         }
         else{ //die korrekte Zugmöglichkeit
-            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+startSquare.getKnightMoveTiles()[random].print()+'</input><br/>';
+            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+randomStartSquare.getRandomKnightMoveTile().print()+'</input><br/>';
         }
     }
+}
+function showKnightPos(){
+    document.getElementById("aufgabe").innerText = "Der Springer steht zunächst auf " + randomStartSquare.print() + ".";
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
 function checkAnswer(){
     let antwort = document.querySelector('input[name="felder"]:checked').value; //value ist option1,option2 oder option3
     alert("Submitted " + antwort);
     if(antwort[6]==String(rightOption)){
-        alert("Right!");
+        alert("Yuhu richtig! Auf zur nächsten Aufgabe!!");
+    
     }
+    else{document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Der legale Zug wäre gewesen Springer nach "+document.getElementById(rightOption).innerText+".";
+    }
+    setTimeout(1000);
+    showKnightPos();
+    generateQuestion();
 }
 
 
-//alert("Lösung: " + tileListToString(randomStartSquare.getKnightMoveTiles()))
+    
+alert(" TestLösung: der Springer kann von "+ randomStartSquare.print()+" nach " + tileListToString(randomStartSquare.getKnightMoveTiles()))
 //generateQuestion(randomStartSquare);
