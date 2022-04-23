@@ -1,20 +1,13 @@
 'use strict';
 "use collections/list";
 /*
-function ausgabe(vorname) {
-    alert('JavaScript-Tutorial für '+ vorname  +'- jetzt JavaScript lernen');
-    console.log('Inhalt der Variable innerhalb der Funktion:' + vorname)
-    return vorname;
-}
-let name = 'Sonja';
-let vorname = ausgabe(name);
+1) Meine Idee war für den User Input jetzt einfach so eine RadioButton auswahl für felder zu machen.
+Davon sollten zwei zufällig sein und eines korrekt. Wenn man das richtige auswählt und Submit drückt
+kommt eine meldung "richtig"
+2)später könnte man einen Punktestand einführen der erhöht wird bei richtigen guesses
 
-console.log('Inhalt der Variable außerhalb der Funktion:' + vorname);
-console.info('Länge der Variablen außerhalb der Funktion: ' + vorname.length);
+ 
 
-//VERGLEICH einer Variablen mitsamt ihrem Datentyp:
-var leider_viel_zu_früh_verglichen = 4 === 4;
-console.log(leider_viel_zu_früh_verglichen);
 */
 
 
@@ -67,16 +60,35 @@ class Tile {
 
 function tileListToString(list) {
     let string = "";
-    let i = 0;
-    for (i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++) {
         string += list[i].print();
         string += " ";
     }
     return string;
 }
 
-let randomsquare = new Tile();
-alert("Wohin kann der Springer auf " + randomsquare.print() + " ?");
-alert("Lösung: " + tileListToString(randomsquare.getKnightMoveTiles()))
 
 
+function generateQuestion(startSquare){
+    let rightOption = Math.floor(Math.random()*3)+1; //zufallszahl zw 1 und 3
+    let random = Math.floor(Math.random()*8); //zz zw 0 7
+    
+
+    for(let i = 0; i<3; i++){// in schleife schreibe die optionen in das HTML
+        if(i != rightOption){ //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
+        document.getElementById(i+1).innerHTML = '<input type="radio" name="felder" id = "11" value="option1">'+new Tile().print()+'</input><br/>';
+        }
+        else{ //die korrekte Zugmöglichkeit
+            document.getElementById(i+1).innerHTML = '<input type="radio" name="felder" id = "11" value="option1">'+startSquare.getKnightMoveTiles()[random].print()+'</input><br/>';
+        }
+    }
+}
+/**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
+function checkAnswer(){
+    //let antwort = document.querySelector('input[name="felder"]:checked').id; //id ist 1,2 oder 3
+    alert("Submitted");
+}
+
+
+//alert("Lösung: " + tileListToString(randomStartSquare.getKnightMoveTiles()))
+//generateQuestion(randomStartSquare);
