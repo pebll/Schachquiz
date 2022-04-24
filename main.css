@@ -3,7 +3,11 @@ body{
     font-family: "Courier New";
     color: white;
     margin-left: 50px;
+    margin-right: 20px;
     background-color:rgb(39, 39, 39) ;
+    
+}
+.triggeredByLevelUp{
     
 }
 .abstand{

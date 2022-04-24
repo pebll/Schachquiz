@@ -64,7 +64,6 @@ class Tile {
         let randomIndex = Math.floor(Math.random() * this.getKnightMoveTiles().length);
         return this.getKnightMoveTiles()[randomIndex];
     }
-
     getRandomKnightNotMoveTile() {
         // inverse von getRandomKnightMoveTile() gibt eine random tile wo der springer nicht hin kann
         // rekursiv, returnt die tile sobald sie nicht available ist
@@ -78,9 +77,57 @@ class Tile {
     }
 }
 
-let points = 0;
+let points = 0; //global
 
-
+class Game{
+    constructor(points = 0, level = 0, levels = ["Novize","Amateur","Dude aus dem Achten","Luca","Dude aus dem Dritten"],
+    difficultyArray = [1,2,4,5,6], colors = ["white","red","blue","green","purple"]){
+        this.points = 0;
+        this.level = 0;
+        
+        if(difficultyArray.length == levels.length){
+            this.levels = levels ;
+            this.difficultyArray = difficultyArray;
+            this.colors = colors;
+        }
+        else{
+            alert("Fehler in class 'Game': es müssen gleich viele Punktestände zum aufleveln wie level da sein.");
+            this.levels = ["DefaultNovize","Amateur","Clubspieler","Luca","der Typ aus dem dritten"];
+            this.difficultyArray = [1,2,3,5,6];
+            this.colors = ["white","red","blue","green","purple"];
+        } 
+    }
+    levelToString(){
+        if(this.level < this.levels.length){
+            return this.levels[this.level];
+        }
+        else{
+            return "EsGibtKeinMaßFürdeineIntelligenz"
+        }
+    }
+    updateLevel(){
+        let notUpToDate = this.difficultyArray[this.level] < this.points;
+        let noMoreLevels = this.points > (this.difficultyArray[this.levels.length] + 1);
+        if(notUpToDate&!noMoreLevels)
+        {
+            this.level++;
+            this.updateLevel();
+        }
+    }
+    getLevelColor(){
+        
+        if(this.level < this.levels.length){
+            return this.colors[this.level];
+        }
+        else{
+            return "white";
+        }
+    }
+    addPoint(){
+        this.points++;
+        this.updateLevel();
+    }
+}
 function tileListToString(list) {
     let string = "";
     for (let i = 0; i < list.length; i++) {
@@ -90,9 +137,11 @@ function tileListToString(list) {
     return string;
 }
 
-let rightOption = 0; //globale Variable
+//--------------GLOBALE VARS----------------
+let rightOption = 0; 
 let randomStartSquare = new Tile(0, 0, true);
-
+let game = new Game(0,0); 
+//------------------------------------------
 function generateQuestion() {
     rightOption = Math.floor(Math.random() * 3); //zufallszahl zw 0 und 2
 
@@ -105,9 +154,14 @@ function generateQuestion() {
         }
     }
 }
+function updateTheme(){
+    document.getElementsByClassName("triggeredByLevelUp")[0].style.color = game.getLevelColor();
+}
 function updateText() {
     document.getElementById("aufgabe").innerText = "Der Springer steht zunächst auf " + randomStartSquare.print() + ".";
-    document.getElementById("punkte").innerText = "Punkte: " + points;
+    document.getElementById("punkte").innerText = "Punkte: " + String(game.points);
+    document.getElementById("rang").innerText = "Rang: " + game.levelToString();
+
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
 function checkAnswer() {
@@ -116,8 +170,10 @@ function checkAnswer() {
     if (antwort[6] == String(rightOption)) {
         alert("Yuhu richtig! Auf zur nächsten Aufgabe!!");
         randomStartSquare = new Tile(0, 0, true);
-        points += 1;
+        game.addPoint();
+        
         updateText();
+        updateTheme();
 
     }
     else {
@@ -128,8 +184,4 @@ function checkAnswer() {
 
     generateQuestion();
 }
-
-
-let testSquare = new Tile(6, 6)
-alert(" TestLösung: der Springer kann von " + testSquare.print() + " nach " + tileListToString(testSquare.getKnightMoveTiles()));
-//generateQuestion(randomStartSquare);
+alert("Hallo! In dieser Website kannst du Blindschachaufgaben lösen. :)");

@@ -13,9 +13,18 @@
 </head>
 
 <body>
-    <h1>Blindschachaufgaben</h1>
-    <p>Hallo! In dieser Website kannst du Blindschachaufgaben lösen. Wo kann der Springer hinhüpfen?</p>
+    
+    <h1>Blindschachtraining</h1>
+    <table>
+        <tr>
+          <td><div class = "triggeredByLevelUp"><h3 id = "rang">  </h3></div></td>
+          <td>|</td>
+          <td><h3 id = "punkte">  </h3></td>
+        </tr>
+      </table>
+    <p>Wo kann der Springer hinhüpfen?</p>
     <p id="aufgabe"> </p>
+    
     <div class="abstand" id="0"><input type="radio" name="felder" value="option0">Feld1</input><br /></div>
     <div class="abstand" id="1"><input type="radio" name="felder" value="option1">Feld2</input><br /></div>
     <div class="abstand" id="2"><input type="radio" name="felder" value="option2">Feld3</input><br /></div>
@@ -23,7 +32,7 @@
     <div class="abstand">
         <button type="button" onclick="checkAnswer()">submit</button>
     </div>
-    <p id="punkte"> </p>
+    
 
 </body>
 
