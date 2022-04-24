@@ -64,6 +64,18 @@ class Tile {
         let randomIndex = Math.floor(Math.random() * this.getKnightMoveTiles().length);
         return this.getKnightMoveTiles()[randomIndex];
     }
+
+    getRandomKnightNotMoveTile() {
+        // inverse von getRandomKnightMoveTile() gibt eine random tile wo der springer nicht hin kann
+        // rekursiv, returnt die tile sobald sie nicht available ist
+        let tile = new Tile(0, 0, true);
+        let availableTiles = this.getKnightMoveTiles();
+        if (availableTiles.includes(tile)) {
+            return this.getRandomKnightNotMoveTile();
+        }
+        return tile;
+
+    }
 }
 
 let points = 0;
@@ -86,7 +98,7 @@ function generateQuestion() {
 
     for (let i = 0; i < 3; i++) {// in schleife schreibe die optionen in das HTML
         if (i != rightOption) { //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
-            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option' + String(i) + '">' + new Tile(0, 0, true).print() + '</input><br/>';
+            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option' + String(i) + '">' + randomStartSquare.getRandomKnightNotMoveTile().print() + '</input><br/>';
         }
         else { //die korrekte Zugmöglichkeit
             document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option' + String(i) + '">' + randomStartSquare.getRandomKnightMoveTile().print() + '</input><br/>';
