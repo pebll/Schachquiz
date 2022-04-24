@@ -1,22 +1,24 @@
 
 body{
     font-family: "Courier New";
-    color: black;
+    color: white;
     margin-left: 50px;
+    background-color:rgb(39, 39, 39) ;
     
 }
 .abstand{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 button{
     
-    padding: 15px 32px;
-    background-color: black;
+    padding: 10px 15px;
+    background-color: rgb(17, 106, 195);
     font-size: large;
     font-weight: bolder;
     color: rgb(255, 255, 255);
-    border-style:hidden;
+    border-style:groove;
+    border-radius: 10px;
 }
 input{
     

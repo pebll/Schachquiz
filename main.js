@@ -13,12 +13,17 @@ kommt eine meldung "richtig"
 
 class Tile {
     // file & rank in integers, to String method prints out the actual name of the tile
-    constructor(file = -1, rank = -1) {
-        this.file = file;
-        this.rank = rank;
-        if ((this.file < 0 || this.file > 7 || this.file < 0 || this.file > 7)) {
+
+    //constructor überarbeitet: zufällige generierung von tiles muss explizit erwünscht werden, sonst fehler in getKnightMoveTiles()
+    //erstellung zufälliger Tiles jetzt mit "new Tile(0,0,true)"
+    constructor(file = -1, rank = -1 , randomGenerated = false) {     
+        if(randomGenerated){
             this.file = parseInt(Math.random() * 8);
             this.rank = parseInt(Math.random() * 8);
+        }
+        else{
+            this.file = file;
+            this.rank = rank;
         }
     }
 
@@ -26,11 +31,12 @@ class Tile {
         let files = ["a", "b", "c", "d", "e", "f", "g", "h"];
         let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
         return String(files[this.file]) + String(ranks[this.rank]);
+        //return "["+(this.file+1)+"]"+(this.rank+1);
     }
 
     isOnBoard() {
-        if (this.file < 0 || this.file > 7 || this.rank < 0 || this.rank > 7) {
-            return false;
+        if ((this.file < 0 || this.file > 7 )||( this.rank < 0 || this.rank > 7)) {
+            return false; 
         }
         return true;
     }
@@ -46,14 +52,12 @@ class Tile {
         availableMoves.push(new Tile(this.file + 1, this.rank - 2));
         availableMoves.push(new Tile(this.file - 1, this.rank + 2));
         availableMoves.push(new Tile(this.file - 1, this.rank - 2));
-
-        let i = 0;
-        for (i = 0; i < 8; i++) {
+        
+        for (let i = 0; i < 8; i++) {
             if (availableMoves[i].isOnBoard()) {
                 availableLegalMoves.push(availableMoves[i]);
             }
         }
-
         return availableLegalMoves;
     }
     getRandomKnightMoveTile(){
@@ -72,14 +76,14 @@ function tileListToString(list) {
 }
 
 let rightOption = 0; //globale Variable
-let randomStartSquare = new Tile();
+let randomStartSquare = new Tile(0,0,true);
 
 function generateQuestion(){
     rightOption = Math.floor(Math.random()*3); //zufallszahl zw 0 und 2
     
     for(let i = 0; i<3; i++){// in schleife schreibe die optionen in das HTML
         if(i != rightOption){ //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
-        document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+new Tile().print()+'</input><br/>';
+        document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+new Tile(0,0,true).print()+'</input><br/>';
         }
         else{ //die korrekte Zugmöglichkeit
             document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+randomStartSquare.getRandomKnightMoveTile().print()+'</input><br/>';
@@ -92,18 +96,22 @@ function showKnightPos(){
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
 function checkAnswer(){
     let antwort = document.querySelector('input[name="felder"]:checked').value; //value ist option1,option2 oder option3
-    alert("Submitted " + antwort);
+    
     if(antwort[6]==String(rightOption)){
         alert("Yuhu richtig! Auf zur nächsten Aufgabe!!");
+        randomStartSquare = new Tile(0,0,true);
+        showKnightPos();
+    }
+    else{
+        
+        document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Versuche es nocheinmal mit dem Springer auf dem Startpunkt "+randomStartSquare.print();
+    }
     
-    }
-    else{document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Der legale Zug wäre gewesen Springer nach "+document.getElementById(rightOption).innerText+".";
-    }
-    showKnightPos();
+    
     generateQuestion();
-}
+}  
 
 
-    
-alert(" TestLösung: der Springer kann von "+ randomStartSquare.print()+" nach " + tileListToString(randomStartSquare.getKnightMoveTiles()))
+let testSquare = new Tile(6,6)    
+alert(" TestLösung: der Springer kann von "+ testSquare.print()+" nach " + tileListToString(testSquare.getKnightMoveTiles()));
 //generateQuestion(randomStartSquare);
