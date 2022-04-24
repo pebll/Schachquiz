@@ -15,13 +15,13 @@ class Tile {
     // file & rank in integers, to String method prints out the actual name of the tile
 
     //constructor überarbeitet: zufällige generierung von tiles muss explizit erwünscht werden, sonst fehler in getKnightMoveTiles()
-    //erstellung zufälliger Tiles jetzt mit "new Tile(0,0,true)"
-    constructor(file = -1, rank = -1 , randomGenerated = false) {     
-        if(randomGenerated){
+    //erstellung zufälliger Tiles jetzt mit "new Tile(0,0,true)" nice gemacht
+    constructor(file = 0, rank = 0, randomGenerated = false) {
+        if (randomGenerated) {
             this.file = parseInt(Math.random() * 8);
             this.rank = parseInt(Math.random() * 8);
         }
-        else{
+        else {
             this.file = file;
             this.rank = rank;
         }
@@ -35,8 +35,8 @@ class Tile {
     }
 
     isOnBoard() {
-        if ((this.file < 0 || this.file > 7 )||( this.rank < 0 || this.rank > 7)) {
-            return false; 
+        if ((this.file < 0 || this.file > 7) || (this.rank < 0 || this.rank > 7)) {
+            return false;
         }
         return true;
     }
@@ -52,7 +52,7 @@ class Tile {
         availableMoves.push(new Tile(this.file + 1, this.rank - 2));
         availableMoves.push(new Tile(this.file - 1, this.rank + 2));
         availableMoves.push(new Tile(this.file - 1, this.rank - 2));
-        
+
         for (let i = 0; i < 8; i++) {
             if (availableMoves[i].isOnBoard()) {
                 availableLegalMoves.push(availableMoves[i]);
@@ -60,11 +60,14 @@ class Tile {
         }
         return availableLegalMoves;
     }
-    getRandomKnightMoveTile(){
-        let randomIndex = Math.floor(Math.random()*this.getKnightMoveTiles().length);
+    getRandomKnightMoveTile() {
+        let randomIndex = Math.floor(Math.random() * this.getKnightMoveTiles().length);
         return this.getKnightMoveTiles()[randomIndex];
     }
 }
+
+let points = 0;
+
 
 function tileListToString(list) {
     let string = "";
@@ -76,42 +79,45 @@ function tileListToString(list) {
 }
 
 let rightOption = 0; //globale Variable
-let randomStartSquare = new Tile(0,0,true);
+let randomStartSquare = new Tile(0, 0, true);
 
-function generateQuestion(){
-    rightOption = Math.floor(Math.random()*3); //zufallszahl zw 0 und 2
-    
-    for(let i = 0; i<3; i++){// in schleife schreibe die optionen in das HTML
-        if(i != rightOption){ //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
-        document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+new Tile(0,0,true).print()+'</input><br/>';
+function generateQuestion() {
+    rightOption = Math.floor(Math.random() * 3); //zufallszahl zw 0 und 2
+
+    for (let i = 0; i < 3; i++) {// in schleife schreibe die optionen in das HTML
+        if (i != rightOption) { //weise zufallssquare zu, (dass aber auch ein legal square sein kan BUG!!!)
+            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option' + String(i) + '">' + new Tile(0, 0, true).print() + '</input><br/>';
         }
-        else{ //die korrekte Zugmöglichkeit
-            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option'+String(i)+'">'+randomStartSquare.getRandomKnightMoveTile().print()+'</input><br/>';
+        else { //die korrekte Zugmöglichkeit
+            document.getElementById(i).innerHTML = '<input type="radio" name="felder" value="option' + String(i) + '">' + randomStartSquare.getRandomKnightMoveTile().print() + '</input><br/>';
         }
     }
 }
-function showKnightPos(){
+function updateText() {
     document.getElementById("aufgabe").innerText = "Der Springer steht zunächst auf " + randomStartSquare.print() + ".";
+    document.getElementById("punkte").innerText = "Punkte: " + points;
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
-function checkAnswer(){
+function checkAnswer() {
     let antwort = document.querySelector('input[name="felder"]:checked').value; //value ist option1,option2 oder option3
-    
-    if(antwort[6]==String(rightOption)){
+
+    if (antwort[6] == String(rightOption)) {
         alert("Yuhu richtig! Auf zur nächsten Aufgabe!!");
-        randomStartSquare = new Tile(0,0,true);
-        showKnightPos();
+        randomStartSquare = new Tile(0, 0, true);
+        points += 1;
+        updateText();
+
     }
-    else{
-        
-        document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Versuche es nocheinmal mit dem Springer auf dem Startpunkt "+randomStartSquare.print();
+    else {
+
+        document.getElementById("aufgabe").innerText = "Tja das war wohl falsch. Versuche es nocheinmal mit dem Springer auf dem Startpunkt " + randomStartSquare.print();
     }
-    
-    
+
+
     generateQuestion();
-}  
+}
 
 
-let testSquare = new Tile(6,6)    
-alert(" TestLösung: der Springer kann von "+ testSquare.print()+" nach " + tileListToString(testSquare.getKnightMoveTiles()));
+let testSquare = new Tile(6, 6)
+alert(" TestLösung: der Springer kann von " + testSquare.print() + " nach " + tileListToString(testSquare.getKnightMoveTiles()));
 //generateQuestion(randomStartSquare);
