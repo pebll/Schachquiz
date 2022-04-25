@@ -164,6 +164,9 @@ function updateText() {
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
 function checkAnswer() {
+    if (document.querySelector('input[name="felder"]:checked') == null) {
+        return; // avoid bugs when nothing selected
+    }
     let antwort = document.querySelector('input[name="felder"]:checked').value; //value ist option1,option2 oder option3
 
     if (antwort[6] == String(rightOption)) {
@@ -183,4 +186,14 @@ function checkAnswer() {
 
     generateQuestion();
 }
-//alert("Hallo! In dieser Website kannst du Blindschachaufgaben lösen. :)");
+
+
+// submit answer with enter aswell ( so that is faster )
+window.onload = function () {
+    var enter = 13;
+    window.onkeydown = function (gfg) {
+        if (gfg.keyCode === enter) {
+            checkAnswer();
+        };
+    }
+}
