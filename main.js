@@ -104,7 +104,7 @@ class Game {
             return this.levels[this.level];
         }
         else {
-            return "EsGibtKeinMaßFürdeineIntelligenz"
+            return "EsGibtKeinMaßFürdeineIntelligenz";
         }
     }
     updateLevel() {

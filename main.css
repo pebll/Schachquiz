@@ -28,3 +28,14 @@ input{
     
     font-size:large;
 }
+
+.chessFieldIndexStyle {
+    margin: 0px;
+    padding: 0px;
+    font-size: medium;
+    text-align: center;
+}
+
+.backColor {
+    background-color: rgb(39, 39, 39);
+}
