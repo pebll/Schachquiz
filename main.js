@@ -1,16 +1,5 @@
 'use strict';
 "use collections/list";
-/*
-1) Meine Idee war für den User Input jetzt einfach so eine RadioButton auswahl für felder zu machen.
-Davon sollten zwei zufällig sein und eines korrekt. Wenn man das richtige auswählt und Submit drückt
-kommt eine meldung "richtig"
-2)später könnte man einen Punktestand einführen der erhöht wird bei richtigen guesses
-
- 
-
-*/
-
-
 class Tile {
     // file & rank in integers, to String method prints out the actual name of the tile
 
@@ -77,7 +66,20 @@ class Tile {
     }
 }
 
-let points = 0; //global
+/*
+1) Meine Idee war für den User Input jetzt einfach so eine RadioButton auswahl für felder zu machen.
+Davon sollten zwei zufällig sein und eines korrekt. Wenn man das richtige auswählt und Submit drückt
+kommt eine meldung "richtig"
+2)später könnte man einen Punktestand einführen der erhöht wird bei richtigen guesses
+
+ 
+
+*/
+
+
+
+
+
 
 class Game {
     constructor(points = 0, level = 0, levels = ["Novize", "Amateur", "Dude aus dem Achten", "Luca", "Dude aus dem Dritten"],
@@ -135,6 +137,8 @@ function tileListToString(list) {
     }
     return string;
 }
+
+
 
 //--------------GLOBALE VARS----------------
 let rightOption = 0;
