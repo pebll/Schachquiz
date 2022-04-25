@@ -60,10 +60,13 @@ export class Tile {
         // rekursiv, returnt die tile sobald sie nicht available ist
         let tile = new Tile(0, 0, true);
         let availableTiles = this.getKnightMoveTiles();
-        if (availableTiles.includes(tile)) {
+        if (availableTiles.includes(tile) || this.getDistanceToTile(tile) > 4 || this.getDistanceToTile(tile) == 0) {
             return this.getRandomKnightNotMoveTile();
         }
         return tile;
+    }
 
+    getDistanceToTile(tile) {
+        return Math.sqrt(Math.pow(Math.abs(tile.rank - this.rank), 2 + Math.pow(Math.abs(tile.file - this.file), 2)));
     }
 }
