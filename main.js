@@ -79,51 +79,50 @@ class Tile {
 
 let points = 0; //global
 
-class Game{
-    constructor(points = 0, level = 0, levels = ["Novize","Amateur","Dude aus dem Achten","Luca","Dude aus dem Dritten"],
-    difficultyArray = [1,2,4,5,6], colors = ["white","red","blue","green","purple"]){
+class Game {
+    constructor(points = 0, level = 0, levels = ["Novize", "Amateur", "Dude aus dem Achten", "Luca", "Dude aus dem Dritten"],
+        difficultyArray = [1, 2, 4, 5, 6], colors = ["white", "red", "blue", "green", "purple"]) {
         this.points = 0;
         this.level = 0;
-        
-        if(difficultyArray.length == levels.length){
-            this.levels = levels ;
+
+        if (difficultyArray.length == levels.length) {
+            this.levels = levels;
             this.difficultyArray = difficultyArray;
             this.colors = colors;
         }
-        else{
+        else {
             alert("Fehler in class 'Game': es müssen gleich viele Punktestände zum aufleveln wie level da sein.");
-            this.levels = ["DefaultNovize","Amateur","Clubspieler","Luca","der Typ aus dem dritten"];
-            this.difficultyArray = [1,2,3,5,6];
-            this.colors = ["white","red","blue","green","purple"];
-        } 
+            this.levels = ["DefaultNovize", "Amateur", "Clubspieler", "Luca", "der Typ aus dem dritten"];
+            this.difficultyArray = [1, 2, 3, 5, 6];
+            this.colors = ["white", "red", "blue", "green", "purple"];
+        }
     }
-    levelToString(){
-        if(this.level < this.levels.length){
+    levelToString() {
+        if (this.level < this.levels.length) {
             return this.levels[this.level];
         }
-        else{
+        else {
             return "EsGibtKeinMaßFürdeineIntelligenz"
         }
     }
-    updateLevel(){
+    updateLevel() {
         let notUpToDate = this.difficultyArray[this.level] < this.points;
         let noMoreLevels = this.points > (this.difficultyArray[this.levels.length] + 1);
-        if(notUpToDate&!noMoreLevels)
-        {
+        if (notUpToDate & !noMoreLevels) {
             this.level++;
             this.updateLevel();
         }
     }
-    getLevelColor(){
-        
-        if(this.level < this.levels.length){
+    getLevelColor() {
+
+        if (this.level < this.levels.length) {
             return this.colors[this.level];
         }
-        else{
+        else {
             return "white";
         }
     }
-    addPoint(){
+    addPoint() {
         this.points++;
         this.updateLevel();
     }
@@ -138,9 +137,9 @@ function tileListToString(list) {
 }
 
 //--------------GLOBALE VARS----------------
-let rightOption = 0; 
+let rightOption = 0;
 let randomStartSquare = new Tile(0, 0, true);
-let game = new Game(0,0); 
+let game = new Game(0, 0);
 //------------------------------------------
 function generateQuestion() {
     rightOption = Math.floor(Math.random() * 3); //zufallszahl zw 0 und 2
@@ -154,7 +153,7 @@ function generateQuestion() {
         }
     }
 }
-function updateTheme(){
+function updateTheme() {
     document.getElementsByClassName("triggeredByLevelUp")[0].style.color = game.getLevelColor();
 }
 function updateText() {
@@ -171,7 +170,7 @@ function checkAnswer() {
         alert("Yuhu richtig! Auf zur nächsten Aufgabe!!");
         randomStartSquare = new Tile(0, 0, true);
         game.addPoint();
-        
+
         updateText();
         updateTheme();
 
@@ -184,4 +183,4 @@ function checkAnswer() {
 
     generateQuestion();
 }
-alert("Hallo! In dieser Website kannst du Blindschachaufgaben lösen. :)");
+//alert("Hallo! In dieser Website kannst du Blindschachaufgaben lösen. :)");
