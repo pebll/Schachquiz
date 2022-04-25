@@ -39,3 +39,5 @@ input{
 .backColor {
     background-color: rgb(39, 39, 39);
 }
+
+td:hover {background-color: #a89a9a88;}
