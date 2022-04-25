@@ -25,10 +25,19 @@
     <p>Wo kann der Springer hinhüpfen?</p>
     <p id="aufgabe"> </p>
     
+    
     <div class="abstand" id="0"><input type="radio" name="felder" value="option0">Feld1</input><br /></div>
     <div class="abstand" id="1"><input type="radio" name="felder" value="option1">Feld2</input><br /></div>
     <div class="abstand" id="2"><input type="radio" name="felder" value="option2">Feld3</input><br /></div>
-
+    <script type = "module">
+        //import {Tile} from "./Tile.js";
+        import {updateText,generateQuestion,checkAnswer} from "./main.js";
+        //alert("Wohin kann der Springer auf " + randomStartSquare.print() + " ?");
+        //document.getElementById("1").innerHTML = '<input type="radio" name="felder" id = "11" value="option1">'+new Tile().print()+'</input><br/>';
+        updateText();
+        generateQuestion();
+        
+    </script>
     <div class="abstand">
         <button type="button" onclick="checkAnswer()">submit</button>
     </div>
@@ -150,6 +159,7 @@
 </body>
 
 </html>
+<<<<<<< HEAD
 <script type = "module">
     //alert("Wohin kann der Springer auf " + randomStartSquare.print() + " ?");
     //document.getElementById("1").innerHTML = '<input type="radio" name="felder" id = "11" value="option1">'+new Tile().print()+'</input><br/>';
@@ -157,3 +167,5 @@
     generateQuestion();
 
 </script>
+=======
+>>>>>>> 7a3cdf54edff7f3942b04de93c8facad745a3ff1
