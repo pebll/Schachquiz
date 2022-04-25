@@ -48,7 +48,7 @@ export function updateText() {
 
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
-function checkAnswer() {
+export function checkAnswer() {
     if (document.querySelector('input[name="felder"]:checked') == null) {
         return; // avoid bugs when nothing selected
     }
