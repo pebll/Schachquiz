@@ -22,7 +22,6 @@ export class Tile {
         let files = ["a", "b", "c", "d", "e", "f", "g", "h"];
         let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
         return String(files[this.file]) + String(ranks[this.rank]);
-        //return "["+(this.file+1)+"]"+(this.rank+1);
     }
 
     isOnBoard() {

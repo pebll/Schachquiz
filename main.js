@@ -8,18 +8,7 @@ import {Game} from "./Game.js";
 Davon sollten zwei zufällig sein und eines korrekt. Wenn man das richtige auswählt und Submit drückt
 kommt eine meldung "richtig"
 2)später könnte man einen Punktestand einführen der erhöht wird bei richtigen guesses
-
- 
-
 */
-
-
-
-
-
-
-
-
 
 //--------------GLOBALE VARS----------------
 let rightOption = 0;
@@ -48,7 +37,7 @@ export function updateText() {
 
 }
 /**checkAnswer() wird direkt nach dem buttonclick ausgeführt */
-function checkAnswer() {
+export function checkAnswer() {
     if (document.querySelector('input[name="felder"]:checked') == null) {
         return; // avoid bugs when nothing selected
     }
@@ -82,4 +71,3 @@ window.onload = function () {
         };
     }
 }
-alert("Sicherheitsalert in main.js");
