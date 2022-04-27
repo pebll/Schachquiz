@@ -2,7 +2,7 @@
 import {Tile} from "./Tile.js";
 
 export function chessboardHTML(color1 ="black",color2 = "rgb(99,99,0)" ,
- highlightSquare = new Tile(0,3), highlightPieceMovement = "knight"){
+ highlightSquare = new Tile(4,7), highlightPieceMovement = "rook"){
     let result = "";
     let files = ["a", "b", "c", "d", "e", "f", "g", "h"];
     let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
@@ -14,18 +14,32 @@ export function chessboardHTML(color1 ="black",color2 = "rgb(99,99,0)" ,
             
             let color;
             color = ((i+j)%2==1)?color1:color2; //Schwarz Weiss Pattern
+            let currentTile = new Tile(j,7-i);         
+            let currentIsReachable = false; //wird wahr gesetzt wenn die betreffliche Tile(7-i,j) gehihlighted werden soll
             switch(highlightPieceMovement){
-                case "knight":
-                    if(highlightSquare.pieceMovableHere(highlightSquare, "knight")){
-                        color = "red";
-                    }
-                    //color = "red";
+                case "knight":   
+                    highlightSquare.getKnightMoveTiles().forEach(reachableTile => {
+                        currentIsReachable = (reachableTile.compare( currentTile))?true:false;
+                        if(currentIsReachable ){
+                            color="red";
+                        }
+                    });
                     break;
                 case "bishop":
-                    color = "green";
+                    highlightSquare.getBishopMoveTiles().forEach(reachableTile => {
+                        currentIsReachable = (reachableTile.compare( currentTile))?true:false;
+                        if(currentIsReachable ){
+                            color="green";
+                        }
+                    });
                     break;
                 case "rook":
-                    color = "blue";
+                    highlightSquare.getRookMoveTiles().forEach(reachableTile => {
+                        currentIsReachable = (reachableTile.compare( currentTile))?true:false;
+                        if(currentIsReachable ){
+                            color="blue";
+                        }
+                    });
                     break;
                 default:
                     break;

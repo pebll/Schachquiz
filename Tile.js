@@ -23,6 +23,9 @@ export class Tile {
         let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
         return String(files[this.file]) + String(ranks[this.rank]);
     }
+    compare( otherTile ){
+        return this.file == otherTile.file & this.rank == otherTile.rank ;
+    }
 
     isOnBoard() {
         if ((this.file < 0 || this.file > 7) || (this.rank < 0 || this.rank > 7)) {
@@ -52,14 +55,14 @@ export class Tile {
     }
     getRookMoveTiles(){
         let availibleLegalMoves = new Array(0);
-        for (let i = 0; i < 8; i++){
-            if(i != this.rank){
-            availibleLegalMoves.push(new Tile(this.file, i)); //für Leeres schachbrett!
-            }
-        }
         for (let j = 0; j < 8; j++){
             if(j != this.rank){
-            availibleLegalMoves.push(new Tile(j, this.rank)); //für Leeres schachbrett!
+            availibleLegalMoves.push(new Tile(this.file, j)); //für Leeres schachbrett!
+            }
+        }
+        for (let i = 0; i < 8; i++){
+            if(i != this.file){
+            availibleLegalMoves.push(new Tile(i,this.rank)); //für Leeres schachbrett!
             }
         }
         return availibleLegalMoves;
@@ -89,14 +92,14 @@ export class Tile {
         //Links-Oben---Rechts-Unten-Diagonale
         i = 1;
         currentTile = new Tile(this.file + i,  this.rank - i);
-        while(currentTile.isOnBoard() & (this.file+i <8) & (this.rank + i < 8)){
+        while(currentTile.isOnBoard() & (this.file+i <8) & (this.rank - i >= 0)){
             availibleLegalMoves.push(currentTile);         
             i++;
             currentTile = new Tile(this.file + i,  this.rank - i)
         }
         i = -1;
         currentTile = new Tile(this.file + i,  this.rank - i);
-        while(currentTile.isOnBoard() & (this.file+i >= 0) & (this.rank + i  >=  0)){
+        while(currentTile.isOnBoard() & (this.file+i >= 0) & (this.rank - i  >=  0)){
             availibleLegalMoves.push(currentTile);         
             i--;
             currentTile = new Tile(this.file + i,  this.rank - i)

@@ -46,6 +46,7 @@ export class Game {
         this.points++;
         this.updateLevel();
     }
+    
 }
 function tileListToString(list) {
     let string = "";
