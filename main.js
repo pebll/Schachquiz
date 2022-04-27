@@ -60,7 +60,12 @@ export function checkAnswer() {
 
     generateQuestion();
 }
-
+function alertTileList(list){
+    let message = "";
+    list.forEach(element => {message+=element.print()+" ";
+    });
+    alert(message);
+}
 
 // submit answer with enter aswell ( so that is faster )
 window.onload = function () {
@@ -71,3 +76,4 @@ window.onload = function () {
         };
     }
 }
+alertTileList(new Tile(0,3).getBishopMoveTiles());

@@ -50,6 +50,95 @@ export class Tile {
         }
         return availableLegalMoves;
     }
+    getRookMoveTiles(){
+        let availibleLegalMoves = new Array(0);
+        for (let i = 0; i < 8; i++){
+            if(i != this.rank){
+            availibleLegalMoves.push(new Tile(this.file, i)); //für Leeres schachbrett!
+            }
+        }
+        for (let j = 0; j < 8; j++){
+            if(j != this.rank){
+            availibleLegalMoves.push(new Tile(j, this.rank)); //für Leeres schachbrett!
+            }
+        }
+        return availibleLegalMoves;
+    }
+    getBishopMoveTiles(){
+        if(!this.isOnBoard()){
+            return; //Fehler wenn betreffender Läufer net auf Brett
+        }
+        let availibleLegalMoves = new Array(0);
+        let i; 
+        let currentTile;
+        //LinksUnten - RechtsOben - Diagaonale
+        i = 1;
+        currentTile = new Tile(this.file + i,  this.rank + i);
+        while(currentTile.isOnBoard() & (this.file+i <8) & (this.rank + i <8)){
+            availibleLegalMoves.push(currentTile);         
+            i++;
+            currentTile = new Tile(this.file + i,  this.rank + i)
+        }
+        i = -1;
+        currentTile = new Tile(this.file + i,  this.rank + i);
+        while(currentTile.isOnBoard() & (this.file + i >= 0) & (this.rank + i >= 0)){
+            availibleLegalMoves.push(currentTile);         
+            i--;
+            currentTile = new Tile(this.file + i,  this.rank + i);
+        }
+        //Links-Oben---Rechts-Unten-Diagonale
+        i = 1;
+        currentTile = new Tile(this.file + i,  this.rank - i);
+        while(currentTile.isOnBoard() & (this.file+i <8) & (this.rank + i < 8)){
+            availibleLegalMoves.push(currentTile);         
+            i++;
+            currentTile = new Tile(this.file + i,  this.rank - i)
+        }
+        i = -1;
+        currentTile = new Tile(this.file + i,  this.rank - i);
+        while(currentTile.isOnBoard() & (this.file+i >= 0) & (this.rank + i  >=  0)){
+            availibleLegalMoves.push(currentTile);         
+            i--;
+            currentTile = new Tile(this.file + i,  this.rank - i)
+        }
+
+
+
+        
+        
+        return availibleLegalMoves;
+    }
+
+    pieceMovableHere(piecePositionTile, piece){
+        
+        switch(piece){
+            case "knight":
+                let result = false;
+                this.getKnightMoveTiles().forEach(element => { 
+                    //alert(element.print() + "!=" +piecePositionTile.print());
+                    result = element == piecePositionTile ;  
+                    if(result){
+                        return result;
+                    } 
+                });
+                return result;
+                break;
+            case "bishop":
+                this.getBishopMoveTiles().forEach(element => { 
+                    return element == piecePositionTile ;   
+                });
+                break;
+            case "rook":
+                this.getRookMoveTiles().forEach(element => { 
+                    return element == piecePositionTile ;   
+                });
+                break;
+            default:
+                return true;
+                break;
+        }
+    }
+
     getRandomKnightMoveTile() {
         let randomIndex = Math.floor(Math.random() * this.getKnightMoveTiles().length);
         return this.getKnightMoveTiles()[randomIndex];
